@@ -14,6 +14,14 @@ const ACCENT_COLORS = [
   { bg: 'bg-amber-500/10', border: 'border-amber-500/20', text: 'text-amber-400', glow: 'rgba(245,158,11,0.15)' },
 ];
 
+function personalizeInsight(text: string): string {
+  const lower = text.toLowerCase();
+  if (!lower.startsWith('i ') && !lower.startsWith('you ') && !lower.startsWith('it seems') && !lower.startsWith('your ')) {
+    return 'I noticed that ' + text.charAt(0).toLowerCase() + text.slice(1);
+  }
+  return text;
+}
+
 export default function Insights() {
   const { user } = useAuth();
   const userId = user?.userId || 0;
@@ -54,7 +62,7 @@ export default function Insights() {
         </div>
         <h1 className="font-serif text-5xl text-white mb-3">Your Patterns</h1>
         <p className="text-muted-foreground max-w-md">
-          ELLA has been paying attention. Here's what she notices about you.
+          I've been paying attention. Here's what I notice about you.
         </p>
       </motion.div>
 
@@ -126,7 +134,7 @@ export default function Insights() {
                 <div className={`w-10 h-10 rounded-2xl ${accent.bg} border ${accent.border} flex items-center justify-center mb-4`}>
                   <Icon size={18} className={accent.text} />
                 </div>
-                <p className="text-white/80 leading-relaxed text-sm md:text-base">{insight}</p>
+                <p className="text-white/80 leading-relaxed text-sm md:text-base">{personalizeInsight(insight)}</p>
               </motion.div>
             );
           })}

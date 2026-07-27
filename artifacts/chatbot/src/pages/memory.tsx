@@ -133,12 +133,10 @@ export default function Memory() {
           <div className="flex justify-center p-12"><Loader2 className="animate-spin text-muted-foreground" size={32} /></div>
         ) : memories?.length === 0 ? (
           <div className="text-center p-12 border border-dashed border-white/10 rounded-3xl flex flex-col items-center">
-            <div className="w-16 h-16 rounded-3xl bg-primary/10 flex items-center justify-center mb-4">
-              <Brain size={28} className="text-primary/60" />
-            </div>
-            <h3 className="text-xl font-serif text-white mb-2">No memories yet</h3>
-            <p className="text-muted-foreground max-w-sm text-sm">
-              Share things with ELLA — your preferences, life context, goals — and she'll use them in every conversation.
+            <Brain size={40} className="mx-auto text-white/15 mb-5" />
+            <h3 className="font-serif text-2xl text-white mb-3">Tell Ella something important.</h3>
+            <p className="text-muted-foreground text-sm max-w-xs mx-auto leading-relaxed">
+              She'll remember it for every future conversation — your preferences, context, and what matters to you.
             </p>
           </div>
         ) : (

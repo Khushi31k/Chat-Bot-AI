@@ -15,7 +15,7 @@ import {
   getGetInsightsQueryKey
 } from '@workspace/api-client-react';
 import { format, isToday } from 'date-fns';
-import { ArrowRight, BookOpen, Target, Activity, Smile, Sparkles, Wind, Check } from 'lucide-react';
+import { ArrowRight, BookOpen, Target, Activity, Smile, Sparkles, Wind, Check, MessageSquare } from 'lucide-react';
 import { Link } from 'wouter';
 
 export default function Dashboard() {
@@ -38,10 +38,19 @@ export default function Dashboard() {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (hour >= 5 && hour < 12) {
+      return { emoji: '🌅', text: 'Good morning', sub: 'Ready to start today with intention?' };
+    }
+    if (hour >= 12 && hour < 18) {
+      return { emoji: '☀️', text: 'Good afternoon', sub: 'How is your day unfolding?' };
+    }
+    if (hour >= 18 && hour < 23) {
+      return { emoji: '🌙', text: 'Good evening', sub: 'Let\'s reflect on today together.' };
+    }
+    return { emoji: '✦', text: 'Still up', sub: 'A quiet moment just for you.' };
   };
+
+  const greeting = getGreeting();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -53,6 +62,13 @@ export default function Dashboard() {
     show: { opacity: 1, y: 0, transition: { type: 'spring' as const, stiffness: 300, damping: 28 } }
   } as const;
 
+  const quickActions = [
+    { label: 'Continue Journal', path: '/journal', icon: BookOpen },
+    { label: 'Resume Chat', path: '/chat', icon: MessageSquare },
+    { label: 'Habits', path: '/habits', icon: Activity },
+    { label: 'Meditation', path: '/meditation', icon: Wind },
+  ];
+
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto w-full pb-16">
       {/* Hero Greeting */}
@@ -60,12 +76,21 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="mb-10"
+        className="mb-10 relative overflow-visible"
       >
-        <h1 className="font-serif text-5xl md:text-6xl text-white mb-2 tracking-wide">
-          {getGreeting()},<br />{user?.username}.
+        <motion.div
+          className="absolute -top-32 -left-20 w-[500px] h-[500px] rounded-full pointer-events-none z-[-1]"
+          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)' }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <h1 className="font-serif text-5xl md:text-6xl text-white mb-3 tracking-wide">
+          {greeting.text},<br />{user?.username}.
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-lg mb-1 flex items-center gap-2">
+          <span>{greeting.emoji}</span> {greeting.sub}
+        </p>
+        <p className="text-white/40 text-sm">
           {format(new Date(), 'EEEE, MMMM d')}
         </p>
       </motion.div>
@@ -83,19 +108,34 @@ export default function Dashboard() {
               <div className="glass-card rounded-3xl p-6 md:p-8 border border-indigo-500/20 relative overflow-hidden cursor-pointer hover:border-indigo-500/30 transition-colors group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-                    <Sparkles size={18} className="text-indigo-400" />
+                  <div className="relative shrink-0 mt-1">
+                    <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                      <Sparkles size={18} className="text-indigo-400" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-400 rounded-full border-2 border-[#0a0a0f] shadow-[0_0_8px_rgba(129,140,248,0.8)]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-indigo-400 uppercase tracking-widest mb-2">ELLA's Insight</p>
-                    <p className="text-white/80 leading-relaxed text-sm md:text-base line-clamp-2">{topInsight}</p>
+                    <p className="text-xs font-medium text-indigo-400 uppercase tracking-widest mb-2">ELLA Notices</p>
+                    <p className="text-white/90 leading-relaxed text-sm md:text-base line-clamp-2 font-serif italic">"{topInsight}"</p>
                   </div>
-                  <ArrowRight size={16} className="text-indigo-400/50 group-hover:text-indigo-400 transition-colors shrink-0 mt-1" />
+                  <ArrowRight size={16} className="text-indigo-400/50 group-hover:text-indigo-400 transition-colors shrink-0 mt-2" />
                 </div>
               </div>
             </Link>
           </motion.div>
         )}
+
+        {/* Quick Actions */}
+        <motion.div variants={itemVariants} className="flex flex-wrap gap-3 pb-2">
+          {quickActions.map(action => (
+            <Link key={action.path} href={action.path}>
+              <div className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-full px-4 py-2 transition-colors cursor-pointer text-sm text-white/80">
+                <action.icon size={14} className="text-primary/70" />
+                <span>{action.label}</span>
+              </div>
+            </Link>
+          ))}
+        </motion.div>
 
         {/* Top row: Mood + Habits */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

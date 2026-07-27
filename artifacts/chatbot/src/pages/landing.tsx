@@ -113,19 +113,35 @@ export default function Landing() {
       {/* Hero Section */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-6 text-center overflow-hidden pt-16">
 
-        {/* Animated Orb */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        {/* Dual Animated Orbs */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
           <motion.div
-            className="w-[600px] h-[600px] md:w-[900px] md:h-[900px] rounded-full"
+            className="absolute w-[700px] h-[700px] md:w-[1100px] md:h-[1100px] rounded-full"
             style={{
-              background: 'radial-gradient(circle, rgba(129,140,248,0.15) 0%, rgba(167,139,250,0.08) 40%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(129,140,248,0.2) 0%, transparent 60%)',
+              filter: 'blur(70px)',
+            }}
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.5, 0.8, 0.5],
+              x: [-20, 20, -20],
+              y: [20, -20, 20],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute w-[600px] h-[600px] md:w-[900px] md:h-[900px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 60%)',
               filter: 'blur(60px)',
             }}
             animate={{
-              scale: [1, 1.08, 1],
-              opacity: [0.6, 1, 0.6],
+              scale: [1.1, 1, 1.1],
+              opacity: [0.6, 0.9, 0.6],
+              x: [20, -20, 20],
+              y: [-20, 20, -20],
             }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
         </div>
 
@@ -157,44 +173,32 @@ export default function Landing() {
           transition={{ duration: 1, ease: 'easeOut' }}
           className="relative z-10 max-w-4xl"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-xs text-white/50 mb-8 font-medium tracking-wide"
-          >
-            <Sparkles size={12} className="text-indigo-400" />
-            Your AI-powered personal companion
-          </motion.div>
-
-          <h1 className="font-serif text-7xl md:text-9xl tracking-widest mb-6 text-white leading-none">
-            ELLA
+          <h1 className="font-serif text-8xl md:text-[120px] tracking-tight mb-6 text-white leading-none">
+            Meet Ella.
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/40 max-w-lg mx-auto leading-relaxed mb-12 font-light">
-            An AI companion that journals, remembers, plans, and grows with you.
+          <p className="text-xl md:text-2xl text-white/60 max-w-lg mx-auto leading-relaxed mb-12 font-light">
+            An AI companion that remembers, plans, and grows with you.
           </p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col items-center justify-center gap-4"
           >
             <Link href="/login">
               <motion.button
                 whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(129,140,248,0.4)' }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-indigo-500 text-white font-medium px-8 py-4 rounded-full text-base flex items-center gap-2 shadow-[0_0_25px_rgba(129,140,248,0.3)] transition-shadow"
+                className="bg-indigo-500 text-white font-medium px-10 py-4 rounded-full text-lg flex items-center gap-2 shadow-[0_0_25px_rgba(129,140,248,0.3)] transition-shadow"
               >
-                Begin your journey <ArrowRight size={18} />
+                Begin <ArrowRight size={20} />
               </motion.button>
             </Link>
-            <a href="#features">
-              <button className="text-white/40 hover:text-white/70 font-medium px-6 py-4 rounded-full text-base transition-colors">
-                Learn more
-              </button>
-            </a>
+            <Link href="/login" className="text-white/40 hover:text-white/70 text-sm transition-colors mt-2">
+              or sign in
+            </Link>
           </motion.div>
         </motion.div>
 
@@ -227,36 +231,16 @@ export default function Landing() {
       </section>
 
       {/* Privacy Section */}
-      <section id="privacy" className="border-t border-white/5 py-32 px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center"
-        >
-          <div className="w-16 h-16 rounded-3xl bg-indigo-500/10 border border-indigo-400/20 flex items-center justify-center mx-auto mb-8">
-            <Brain size={28} className="text-indigo-400" />
-          </div>
-          <h2 className="font-serif text-4xl md:text-5xl text-white mb-6">Privacy by design</h2>
-          <p className="text-white/40 text-lg leading-relaxed mb-12">
-            Your journal entries, habits, memories and conversations are yours alone. We believe your inner life deserves the same protection as your home.
-          </p>
-          <Link href="/login">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium px-8 py-4 rounded-full text-base transition-colors"
-            >
-              Get started — it's free
-            </motion.button>
-          </Link>
-        </motion.div>
+      <section id="privacy" className="max-w-2xl mx-auto px-6 py-24 text-center">
+        <h2 className="font-serif text-4xl mb-6">Your thoughts stay yours.</h2>
+        <p className="text-white/50 text-lg leading-relaxed">
+          Ella stores your data only to help you. Your journal, habits, and conversations are never sold, never shared, and never used to train AI models. This is your private space.
+        </p>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-10 px-6 text-center">
-        <p className="text-white/20 text-sm font-serif tracking-widest">ELLA &copy; {new Date().getFullYear()}</p>
+      <footer className="border-t border-white/5 py-10 text-center text-sm text-white/20">
+        ELLA — A private AI companion. © {new Date().getFullYear()}.
       </footer>
     </div>
   );

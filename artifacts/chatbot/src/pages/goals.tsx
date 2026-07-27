@@ -210,8 +210,8 @@ export default function Goals() {
           ) : filteredGoals?.length === 0 ? (
             <div className="text-center p-12 border border-dashed border-white/10 rounded-3xl">
               <Target size={48} className="mx-auto text-white/20 mb-4" />
-              <h3 className="text-xl text-white mb-2">No goals found</h3>
-              <p className="text-muted-foreground max-w-sm mx-auto">Set a new goal in this category to start tracking.</p>
+              <p className="font-serif text-2xl text-white/40 mb-2">Every achievement starts with a clear intention.</p>
+              <p className="text-muted-foreground text-sm">Set your first goal.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

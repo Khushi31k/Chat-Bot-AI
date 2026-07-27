@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useListMeditationPresets } from '@workspace/api-client-react';
-import { Play, Pause, Wind, X, Loader2, Wand2, SkipBack } from 'lucide-react';
+import { Play, Pause, Wind, X, Loader2, Wand2, SkipBack, CloudRain, Waves, TreePine, Volume2 } from 'lucide-react';
 import * as Dialog from '@radix-ui/react-dialog';
 
 function formatTime(s: number) {
@@ -14,6 +14,12 @@ function formatTime(s: number) {
 const THEMES = ['Anxiety relief', 'Morning focus', 'Deep sleep', 'Gratitude', 'Confidence', 'Stress release'];
 const MOODS_LIST = ['Anxious', 'Tired', 'Restless', 'Neutral', 'Calm', 'Energetic'];
 const DURATIONS = [3, 5, 10, 15];
+
+const AMBIENT_SOUNDS = [
+  { id: 'rain', label: 'Rain', icon: CloudRain, url: 'https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-2393.mp3' },
+  { id: 'ocean', label: 'Ocean', icon: Waves, url: 'https://assets.mixkit.co/sfx/preview/mixkit-ocean-waves-loop-1196.mp3' },
+  { id: 'forest', label: 'Forest', icon: TreePine, url: 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3' }
+];
 
 // Breathing circle animation phases
 const BREATHING = [
@@ -115,16 +121,63 @@ export default function Meditation() {
   const [mood, setMood] = useState(MOODS_LIST[3]);
   const [isGenerating, setIsGenerating] = useState(false);
 
+  const [ambientTrack, setAmbientTrack] = useState<string | null>(null);
+  const [ambientVolume, setAmbientVolume] = useState(0.4);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioBlobUrlRef = useRef<string | null>(null);
+  const ambientAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (audioBlobUrlRef.current) URL.revokeObjectURL(audioBlobUrlRef.current);
       audioRef.current?.pause();
+      if (ambientAudioRef.current) {
+        ambientAudioRef.current.pause();
+      }
     };
   }, []);
+
+  // Ambient sound management
+  useEffect(() => {
+    if (ambientTrack) {
+      const sound = AMBIENT_SOUNDS.find(s => s.id === ambientTrack);
+      if (sound) {
+        if (!ambientAudioRef.current) {
+          ambientAudioRef.current = new Audio(sound.url);
+          ambientAudioRef.current.loop = true;
+        } else if (ambientAudioRef.current.src !== sound.url) {
+          ambientAudioRef.current.src = sound.url;
+        }
+        ambientAudioRef.current.volume = ambientVolume;
+        if (isPlaying) {
+          ambientAudioRef.current.play().catch(console.error);
+        }
+      }
+    } else {
+      if (ambientAudioRef.current) {
+        ambientAudioRef.current.pause();
+      }
+    }
+  }, [ambientTrack]);
+
+  useEffect(() => {
+    if (ambientAudioRef.current) {
+      ambientAudioRef.current.volume = ambientVolume;
+    }
+  }, [ambientVolume]);
+
+  useEffect(() => {
+    if (ambientAudioRef.current && ambientTrack) {
+      if (isPlaying) {
+        ambientAudioRef.current.play().catch(console.error);
+      } else {
+        ambientAudioRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
 
   const loadAudio = async (theme: string, durationMin: number, mood?: string) => {
     setIsLoadingAudio(true);
@@ -223,6 +276,14 @@ export default function Meditation() {
     }
   };
 
+  const closeSession = () => {
+    setActiveSession(null); 
+    audioRef.current?.pause(); 
+    if (ambientAudioRef.current) ambientAudioRef.current.pause();
+    setIsPlaying(false);
+    setAmbientTrack(null);
+  };
+
   const duration_total = totalDuration || activeSession?.duration || 0;
   const remaining = Math.max(0, duration_total - currentTime);
   const progress = duration_total > 0 ? (currentTime / duration_total) * 100 : 0;
@@ -308,7 +369,7 @@ export default function Meditation() {
               className="w-full max-w-md glass-card rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center relative"
             >
               <button
-                onClick={() => { setActiveSession(null); audioRef.current?.pause(); setIsPlaying(false); }}
+                onClick={closeSession}
                 className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white transition-colors"
               >
                 <X size={15} />
@@ -348,7 +409,7 @@ export default function Meditation() {
               </div>
 
               {/* Controls */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 mb-8">
                 <button
                   onClick={handleRestart}
                   className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white transition-colors"
@@ -368,6 +429,47 @@ export default function Meditation() {
                 </button>
                 <div className="w-10 h-10" /> {/* spacer */}
               </div>
+
+              {/* Ambient Sounds */}
+              <div className="w-full pt-6 border-t border-white/5">
+                <p className="text-xs text-muted-foreground mb-3 text-left">Ambience</p>
+                <div className="flex gap-2">
+                  {AMBIENT_SOUNDS.map(sound => {
+                    const isActive = ambientTrack === sound.id;
+                    return (
+                      <button
+                        key={sound.id}
+                        onClick={() => setAmbientTrack(isActive ? null : sound.id)}
+                        className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs transition-colors ${
+                          isActive ? 'bg-white/15 text-white' : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70'
+                        }`}
+                      >
+                        <sound.icon size={14} />
+                        {sound.label}
+                      </button>
+                    );
+                  })}
+                </div>
+                {ambientTrack && (
+                  <motion.div 
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    className="flex items-center gap-3 mt-4 overflow-hidden"
+                  >
+                    <Volume2 size={14} className="text-white/40 shrink-0" />
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={ambientVolume}
+                      onChange={(e) => setAmbientVolume(Number(e.target.value))}
+                      className="w-full h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full"
+                    />
+                  </motion.div>
+                )}
+              </div>
+
             </motion.div>
           </motion.div>
         )}

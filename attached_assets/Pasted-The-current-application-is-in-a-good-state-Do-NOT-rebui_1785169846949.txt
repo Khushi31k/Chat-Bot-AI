@@ -1,0 +1,487 @@
+The current application is in a good state. Do NOT rebuild the application from scratch. Do NOT change the overall visual style. Preserve the existing color palette, typography, routing, backend, and features that already work.
+
+This task is focused on transforming Ella from a good prototype into a premium consumer application.
+
+The overall inspiration should be:
+
+Apple Journal
+Apple Intelligence
+Headspace
+Calm
+Arc Browser
+
+The experience should feel warm, elegant, personal, and calming.
+
+GENERAL RULES
+
+Do not redesign everything.
+
+Improve the existing implementation.
+
+Keep the current aesthetic.
+
+Improve polish, spacing, animations, typography and usability.
+
+Avoid generic dashboard templates.
+
+Focus on emotional design.
+
+SIDEBAR
+
+Rename
+
+Dashboard
+
+↓
+
+Home
+
+Make the sidebar collapsible.
+
+Expanded
+
+🏠 Home
+
+💬 Chat
+
+📖 Journal
+
+🎯 Goals
+
+✅ Habits
+
+📅 Calendar
+
+😊 Mood
+
+🧘 Meditation
+
+📈 Insights
+
+🧠 Memories
+
+⚙ Settings
+
+The Memories page should remain, but move it to the bottom of the sidebar above Settings because it is not a feature users access every day.
+
+When collapsed
+
+Only icons should appear.
+
+Add smooth animation.
+
+Hover tooltips.
+
+HOME PAGE
+
+Completely refine the Home page.
+
+Reduce clutter.
+
+Instead of lots of small widgets, create one beautiful hero section.
+
+Display
+
+Good evening, Khushi.
+
+Monday, July 27
+
+Then display a personalized AI reflection.
+
+Example
+
+"Welcome back.
+
+Yesterday you completed your reading habit and wrote in your journal.
+
+Would you like to continue where you left off?"
+
+Below that
+
+Continue Journal
+
+Resume Last Chat
+
+Today's Habits
+
+Recommended Meditation
+
+Upcoming Goal
+
+Recent Activity
+
+The AI reflection should feel like Ella is speaking naturally.
+
+The Home page should have subtle motion.
+
+Add a slow breathing purple aura behind the hero section.
+
+The orb should softly pulse and react slightly to mouse movement.
+
+LANDING PAGE
+
+Keep the current direction but redesign it.
+
+The current landing page looks like a generic AI-generated SaaS website.
+
+Instead create a cinematic premium landing page.
+
+Large serif typography.
+
+Beautiful spacing.
+
+Animated glowing purple orb.
+
+Floating particles.
+
+Very subtle gradients.
+
+Scroll animations.
+
+Sections
+
+Hero
+
+Features
+
+Privacy
+
+Login
+
+Footer
+
+Remove About completely.
+
+No About page.
+
+LOGIN PAGE
+
+Keep
+
+Username
+
+Password
+
+No email verification.
+
+No Google login.
+
+No OTP.
+
+Improve animations.
+
+Floating labels.
+
+Glassmorphism.
+
+Subtle glow.
+
+Animated orb in the background.
+
+CHAT
+
+The chat currently works well.
+
+Do not redesign it.
+
+Only improve polish.
+
+While Ella is generating a response
+
+Animate the glowing orb.
+
+The orb should breathe and pulse.
+
+Streaming responses.
+
+Smooth scrolling.
+
+Typing indicator.
+
+Keep conversation history.
+
+Maintain AI context.
+
+JOURNAL
+
+Completely improve the writing experience.
+
+Do NOT use a plain textarea.
+
+The journal should resemble premium notebook paper.
+
+Requirements
+
+Subtle horizontal ruled lines.
+
+Soft paper texture.
+
+Elegant serif typography.
+
+Beautiful spacing.
+
+Comfortable margins.
+
+Auto expanding page.
+
+Autosave.
+
+Word count.
+
+Reading time.
+
+Date header.
+
+Mood selector integrated into the page.
+
+Smooth writing animations.
+
+Page shadow.
+
+The user should feel like they are writing inside a beautiful notebook.
+
+Not inside a text editor.
+
+HABITS
+
+Completely redesign habit tracking.
+
+Current habit cards are too simple.
+
+Replace them with a proper habit tracking interface inspired by modern habit tracker apps.
+
+Each habit should show
+
+Current streak
+
+Longest streak
+
+Completion percentage
+
+Monthly statistics
+
+The main tracking interface should be a monthly calendar or GitHub-style contribution grid.
+
+Each day should appear as a small circle.
+
+Completed days become filled purple circles.
+
+Incomplete days remain outlined.
+
+Clicking a day toggles completion.
+
+Store every completed date permanently.
+
+Users should be able to
+
+Create habits
+
+Edit habits
+
+Delete habits
+
+Archive habits
+
+Rename habits
+
+View previous months
+
+View yearly progress
+
+MEDITATION
+
+Keep the current meditation page design.
+
+The UI is already good.
+
+The functionality must be implemented.
+
+Currently pressing Play does nothing.
+
+When the user presses Play
+
+Generate a personalized meditation using OpenAI.
+
+Base it on
+
+Recent journals
+
+Mood history
+
+Habits
+
+Goals
+
+Chat history
+
+Generate a calming meditation script.
+
+Convert the meditation into speech using OpenAI Text-to-Speech.
+
+Play the generated audio immediately.
+
+Display
+
+Play
+
+Pause
+
+Seek
+
+Waveform
+
+Remaining time
+
+Allow optional ambient sounds
+
+Rain
+
+Ocean
+
+Forest
+
+with separate volume controls.
+
+MEMORIES
+
+Keep the Memories feature.
+
+Move it to the bottom of the sidebar.
+
+Improve empty state.
+
+Example
+
+"Tell Ella something important.
+
+She'll remember it for future conversations."
+
+Allow
+
+Create
+
+Edit
+
+Delete
+
+Pin
+
+Search
+
+Memories
+
+Ella should automatically retrieve relevant memories during conversations.
+
+INSIGHTS
+
+Keep existing AI Insights.
+
+Improve wording.
+
+Insights should feel personal.
+
+Avoid robotic language.
+
+Examples
+
+"I noticed you journal more on productive days."
+
+"You seem calmer after meditation."
+
+"You've maintained your reading streak for five days."
+
+MOTION
+
+The application currently feels too static.
+
+Add subtle animations throughout.
+
+Purple breathing orb on Home.
+
+Floating particles on Landing.
+
+Smooth page transitions.
+
+Card hover animations.
+
+Soft fades.
+
+Micro interactions.
+
+Nothing flashy.
+
+Everything should feel calm.
+
+EMPTY STATES
+
+Replace generic messages.
+
+Examples
+
+Journal
+
+"Every meaningful story begins with a single page."
+
+Habits
+
+"Small steps every day become remarkable progress."
+
+Memories
+
+"Tell Ella something important. She'll remember it."
+
+Goals
+
+"Every achievement starts with a clear intention."
+
+DO NOT CHANGE
+
+Keep
+
+Theme
+
+Typography
+
+Color palette
+
+AI chat
+
+Mood page
+
+Calendar
+
+Goals
+
+Backend
+
+Routing
+
+Authentication
+
+Only improve polish.
+
+FINAL GOAL
+
+Ella should no longer feel like an AI-generated dashboard.
+
+It should feel like a polished premium application someone would genuinely use every day.
+
+Every page should communicate calmness, elegance, and emotional intelligence.
+
+Prioritize experience over adding more features.
+
+Do not replace working functionality unless absolutely necessary.
+
+Focus on refinement, polish, animations, thoughtful layouts, and premium interactions.
+
+The final result should be portfolio-quality and look like a real commercial product rather than a student project.
+
+I have one more suggestion that I think would make Ella unforgettable:
+
+Instead of showing "Good evening, Khushi" every time, make it dynamic:
+
+🌅 Morning: "Good morning, Khushi. Ready to start today with intention?"
+☀️ Afternoon: "Good afternoon. How's your day unfolding?"
+🌙 Evening: "Good evening. Let's reflect on today together."
+
+It's a tiny detail, but it makes the app feel alive rather than scripted, and it's exactly the kind of polish that elevates a product from "good" to "memorable."

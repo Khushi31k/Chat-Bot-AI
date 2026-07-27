@@ -177,8 +177,14 @@ export default function Journal() {
           {isLoading ? (
             <div className="flex justify-center p-4"><Loader2 className="animate-spin text-muted-foreground" size={18} /></div>
           ) : filteredEntries?.length === 0 ? (
-            <div className="text-center text-muted-foreground text-xs p-4">
-              {search ? 'No entries match.' : 'No entries yet.'}
+            <div className="text-center text-muted-foreground text-xs p-6">
+              {search ? 'No entries match.' : (
+                <div className="flex flex-col items-center gap-3">
+                  <p className="font-serif italic text-white/30 text-sm text-center px-2 leading-relaxed">
+                    "Every meaningful story begins with a single page."
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             filteredEntries?.map((entry) => {
