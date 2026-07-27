@@ -1,0 +1,698 @@
+ELLA
+Product Vision
+
+Build a premium production-quality AI companion web application named Ella.
+
+Tagline:
+
+"An AI companion that remembers, plans, and grows with you."
+
+Ella is NOT a chatbot.
+
+Ella is an intelligent personal companion with long-term memory, personalized planning, journaling, productivity tools, habit tracking, and AI coaching.
+
+The application should feel like a polished commercial SaaS product.
+
+Think:
+
+Apple Intelligence
+
+Notion AI
+
+ChatGPT
+
+Perplexity
+
+combined into one beautiful application.
+
+IMPORTANT
+
+Use production-quality architecture.
+
+No placeholder UI.
+
+No fake functionality.
+
+Every feature must work.
+
+Use clean code.
+
+Component-based architecture.
+
+Reusable APIs.
+
+Strong typing.
+
+Proper folder organization.
+
+TECH STACK
+
+Frontend
+
+React
+
+TypeScript
+
+Vite
+
+TailwindCSS
+
+Framer Motion
+
+React Router
+
+TanStack Query
+
+Zustand
+
+Lucide Icons
+
+Backend
+
+FastAPI
+
+Python
+
+SQLAlchemy
+
+JWT Authentication
+
+PostgreSQL
+
+Alembic
+
+Redis for caching (optional)
+
+AUTHENTICATION
+
+DO NOT use Google Login.
+
+DO NOT require email verification.
+
+DO NOT require OTP.
+
+Use only:
+
+Username
+
+Password
+
+JWT Authentication
+
+Features:
+
+Signup
+
+Login
+
+Logout
+
+Remember Me
+
+Secure password hashing using Argon2 or bcrypt
+
+Protected routes
+
+Session persistence
+
+DESIGN
+
+Premium.
+
+Modern.
+
+Apple-inspired.
+
+Dark Mode
+
+Minimal.
+
+Glassmorphism.
+
+Rounded corners.
+
+Elegant animations.
+
+Typography
+
+Inter
+
+Background
+
+Near black
+
+Accent
+
+Soft Blue
+
+Very subtle gradients.
+
+No flashy colors.
+
+LANDING PAGE
+
+Sticky Navbar
+
+Logo
+
+Ella
+
+Navigation
+
+Features
+
+AI
+
+Pricing
+
+About
+
+Login
+
+Get Started
+
+Hero
+
+Large heading
+
+"Meet Ella."
+
+Subheading
+
+An AI companion that remembers, plans, and grows with you.
+
+Buttons
+
+Start Free
+
+Learn More
+
+Animated glowing orb
+
+Soft particles
+
+Mouse interaction
+
+Smooth floating animation
+
+Feature Section
+
+Cards
+
+Persistent Memory
+
+Smart Planning
+
+AI Chat
+
+Journal
+
+Goals
+
+Habits
+
+Calendar
+
+Insights
+
+Beautiful hover animations.
+
+AI Section
+
+Explain
+
+Ella remembers previous conversations.
+
+Learns user preferences.
+
+Plans intelligently.
+
+Summarizes journals.
+
+Provides coaching.
+
+Footer
+
+Privacy
+
+Terms
+
+GitHub
+
+Contact
+
+DASHBOARD
+
+Sidebar
+
+Chat
+
+Memory
+
+Journal
+
+Goals
+
+Tasks
+
+Habits
+
+Calendar
+
+Insights
+
+Settings
+
+Logout
+
+Top Bar
+
+Search
+
+Profile
+
+Theme Toggle
+
+Notifications
+
+CHAT
+
+Premium chat interface.
+
+Typing animation.
+
+Streaming responses.
+
+Markdown support.
+
+Code highlighting.
+
+Tables.
+
+Lists.
+
+Image upload placeholder.
+
+File upload placeholder.
+
+Conversation history.
+
+Pinned chats.
+
+Rename conversations.
+
+Delete conversations.
+
+Search conversations.
+
+MEMORY
+
+This is Ella's core feature.
+
+Ella remembers ONLY information the user explicitly chooses to save.
+
+Examples:
+
+Favorite programming language
+
+Career goals
+
+Fitness goals
+
+Birthday
+
+Preferred learning style
+
+Current project
+
+Dream company
+
+Users can
+
+View memories
+
+Edit memories
+
+Delete memories
+
+Search memories
+
+Pin memories
+
+During chats, Ella should automatically retrieve relevant saved memories to personalize responses.
+
+JOURNAL
+
+Beautiful writing interface.
+
+Daily journal.
+
+Mood selector.
+
+AI summary.
+
+Weekly reflection.
+
+Monthly reflection.
+
+Search journals.
+
+Edit.
+
+Delete.
+
+TASKS
+
+Create tasks.
+
+Priority
+
+Due date
+
+Status
+
+Categories
+
+Recurring tasks
+
+AI-generated subtasks
+
+Drag and drop
+
+Completion animation
+
+GOALS
+
+Career
+
+Fitness
+
+Learning
+
+Finance
+
+Personal
+
+AI breaks goals into
+
+Milestones
+
+Weekly tasks
+
+Daily actions
+
+Shows progress bars.
+
+HABITS
+
+Track
+
+Water
+
+Reading
+
+Exercise
+
+Meditation
+
+Coding
+
+Sleep
+
+Custom habits
+
+Beautiful streak animations.
+
+Completion statistics.
+
+CALENDAR
+
+Monthly
+
+Weekly
+
+Daily
+
+Task integration.
+
+Goal integration.
+
+Journal integration.
+
+Upcoming deadlines.
+
+INSIGHTS
+
+Dashboard
+
+Productivity score
+
+Habit completion
+
+Goal progress
+
+Journal consistency
+
+Task completion
+
+Weekly AI summary
+
+Monthly AI report
+
+Beautiful charts.
+
+SEARCH
+
+Search
+
+Chats
+
+Tasks
+
+Goals
+
+Habits
+
+Journals
+
+Memories
+
+SETTINGS
+
+Profile
+
+Username
+
+Password
+
+Theme
+
+Notifications
+
+Export Data
+
+Delete Account
+
+Privacy
+
+DELETE ACCOUNT
+
+Confirmation dialog.
+
+Deletes
+
+User
+
+Chats
+
+Tasks
+
+Goals
+
+Habits
+
+Journal
+
+Memory
+
+Everything permanently.
+
+AI FEATURES
+
+Use OpenAI.
+
+Ella should be capable of
+
+General conversation
+
+Personal coaching
+
+Goal planning
+
+Task planning
+
+Habit recommendations
+
+Journal summarization
+
+Weekly reflections
+
+Productivity analysis
+
+Learning assistance
+
+Career advice
+
+Coding help
+
+Writing assistance
+
+Motivation
+
+Decision support
+
+When memories exist, automatically include relevant context in prompts so responses feel personalized.
+
+Never fabricate stored memories.
+
+DATABASE
+
+Users
+
+Conversations
+
+Messages
+
+Memory
+
+Tasks
+
+Goals
+
+Habits
+
+JournalEntries
+
+Notifications
+
+Settings
+
+Sessions
+
+BACKEND
+
+FastAPI
+
+REST APIs
+
+JWT
+
+Authentication
+
+Rate limiting
+
+Caching
+
+Pagination
+
+Search
+
+Error handling
+
+Structured logging
+
+Environment variables
+
+SECURITY
+
+Argon2 password hashing
+
+JWT
+
+Input validation
+
+SQL injection protection
+
+HTTPS ready
+
+Secure environment variables
+
+CORS configuration
+
+PERFORMANCE
+
+Lazy loading
+
+Infinite scrolling for chat history
+
+Skeleton loaders
+
+Optimistic UI updates
+
+Code splitting
+
+Caching
+
+Responsive images
+
+RESPONSIVENESS
+
+Desktop
+
+Tablet
+
+Mobile
+
+No layout issues.
+
+Touch friendly.
+
+ANIMATIONS
+
+Framer Motion
+
+Fade
+
+Scale
+
+Slide
+
+Smooth page transitions
+
+Hover interactions
+
+Typing animation
+
+Loading shimmer
+
+Micro interactions
+
+Animated counters
+
+README
+
+Automatically generate a professional README containing:
+
+Project overview
+
+Features
+
+Architecture
+
+Folder structure
+
+Installation
+
+Environment variables
+
+Deployment guide
+
+Future roadmap
+
+License
+
+Screenshots placeholders
+
+FINAL REQUIREMENTS
+
+Build Ella as a production-ready AI companion with a polished, premium user experience. Every page should be fully functional, connected to the backend, and use clean, modular architecture. The application should demonstrate strong software engineering practices, modern React development, robust FastAPI services, secure authentication, and thoughtful AI integration. Seed the application with realistic demo data so it is presentation-ready immediately after setup.

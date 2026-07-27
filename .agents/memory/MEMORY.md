@@ -1,0 +1,1 @@
+- [ELLA app architecture](ella-architecture.md) — full-stack AI companion app: chatbot artifact (frontend) + api-server artifact (backend), all feature routes live.
