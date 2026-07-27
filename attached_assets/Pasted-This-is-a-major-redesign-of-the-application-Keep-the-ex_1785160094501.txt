@@ -1,0 +1,638 @@
+This is a major redesign of the application. Keep the existing backend, routing, and database wherever possible, but completely redesign and improve the product experience.
+
+Ella should NOT feel like an admin dashboard or a CRUD application.
+
+It should feel like a premium consumer application that people would actually use every day.
+
+Think:
+
+Apple Journal
+Headspace
+Calm
+Notion
+Arc Browser
+Apple Health
+
+The design language should be warm, elegant, calming, minimal and luxurious.
+
+FIRST PRIORITY
+
+The application currently looks like a generic SaaS template.
+
+I want to transform it into a premium emotional experience.
+
+Reduce the feeling of
+
+boxes
+cards
+dashboard widgets
+
+Increase
+
+whitespace
+typography
+motion
+illustrations
+personality
+emotional design
+REMOVE
+
+Remove the About page completely.
+
+Remove any placeholder pages.
+
+Remove unnecessary cards.
+
+Remove generic dashboard widgets.
+
+Remove fake demo components.
+
+LANDING PAGE
+
+Completely redesign the landing page.
+
+I want a cinematic premium landing page.
+
+Inspired by Apple and MotionSites.
+
+The hero should have
+
+Large serif heading
+
+Meet Ella.
+
+Subheading
+
+An AI companion that remembers, plans, and grows with you.
+
+Large animated glowing orb.
+
+Floating particles.
+
+Subtle gradient lighting.
+
+Very slow animations.
+
+Beautiful glass navbar.
+
+Sections
+
+Features
+
+Privacy
+
+Login
+
+No About page.
+
+As the user scrolls
+
+Journal preview
+
+Habit tracker preview
+
+Memory preview
+
+Meditation preview
+
+AI chat preview
+
+Everything should animate beautifully.
+
+LOGIN PAGE
+
+Keep only
+
+Username
+
+Password
+
+No email.
+
+No verification.
+
+No Google login.
+
+No OTP.
+
+This application is for portfolio demonstration.
+
+Improve animations.
+
+Floating labels.
+
+Glass card.
+
+Beautiful focus effects.
+
+DASHBOARD
+
+Completely redesign.
+
+Current dashboard feels like widgets.
+
+Instead
+
+Create a home screen that feels alive.
+
+Display
+
+Greeting
+
+Today's reflection
+
+Today's mood
+
+Continue journal
+
+Today's habits
+
+Upcoming goals
+
+Recommended meditation
+
+Weekly progress
+
+AI insight
+
+The AI insight card should be the hero section.
+
+Example
+
+Good evening, Khushi.
+
+You completed 4 habits today.
+
+You journaled yesterday.
+
+Your mood has improved this week.
+
+Would you like to continue yesterday's reflection?
+
+The dashboard should feel like Ella knows the user.
+
+AI CHAT
+
+THIS IS THE MOST IMPORTANT FEATURE.
+
+Currently the chat does not work.
+
+Fix the complete chat functionality.
+
+The AI assistant must work end-to-end.
+
+Implement
+
+Streaming responses
+
+Markdown
+
+Code formatting
+
+Conversation history
+
+Rename chats
+
+Delete chats
+
+Search chats
+
+Pinned chats
+
+Typing animation
+
+Loading animation
+
+Auto scroll
+
+Persistent history
+
+Backend integration
+
+The assistant should retrieve relevant user memories before generating responses.
+
+The AI must use
+
+Journal entries
+
+Goals
+
+Habits
+
+Mood history
+
+Stored memories
+
+Previous conversations
+
+to answer intelligently.
+
+The assistant should feel like it actually knows the user.
+
+Never lose chat history.
+
+Never fabricate memories.
+
+Use OpenAI Chat Completions or the Responses API correctly with proper error handling.
+
+MEMORY
+
+Add a dedicated Memory page.
+
+The AI should only remember information when the user explicitly asks it to remember something.
+
+Users can
+
+Create
+
+Edit
+
+Delete
+
+Search
+
+Pin
+
+Memories
+
+During conversations
+
+Relevant memories should automatically be retrieved and injected into the prompt.
+
+JOURNAL
+
+Completely redesign.
+
+Do NOT use a plain textarea.
+
+I want a premium notebook experience.
+
+The writing area should resemble beautiful notebook paper.
+
+Requirements
+
+Horizontal writing lines
+
+Soft paper texture
+
+Generous padding
+
+Beautiful serif typography
+
+Elegant cursor
+
+Auto expanding page
+
+Date header
+
+Mood selector
+
+Autosave
+
+Word count
+
+Reading time
+
+Journal history
+
+Page transition animation
+
+Journal thumbnails
+
+Search
+
+Filter
+
+Tags
+
+AI summary after saving
+
+Weekly reflections
+
+Monthly reflections
+
+The journal should feel calming.
+
+Writing should feel enjoyable.
+
+HABITS
+
+Completely redesign.
+
+When adding a habit
+
+The user should be able to
+
+Edit
+
+Delete
+
+Archive
+
+Rename
+
+Set frequency
+
+Set category
+
+Set reminder
+
+Track completion by date.
+
+Each habit should remember every completed day.
+
+Example
+
+Drink Water
+
+Completed
+
+Jan 1
+
+Jan 2
+
+Jan 3
+
+Jan 5
+
+Jan 7
+
+Display
+
+Weekly calendar
+
+Monthly heatmap
+
+Completion %
+
+Longest streak
+
+Current streak
+
+Completion graph
+
+Beautiful animations.
+
+GOALS
+
+Redesign.
+
+Each goal should contain
+
+Vision
+
+Description
+
+Deadline
+
+Milestones
+
+Tasks
+
+Progress
+
+Images
+
+Notes
+
+AI suggestions
+
+Timeline
+
+Progress visualization
+
+Goal completion animation
+
+CALENDAR
+
+Beautiful monthly planner.
+
+Drag and drop tasks.
+
+Goals.
+
+Journal reminders.
+
+Meditation reminders.
+
+Habit reminders.
+
+Daily planner.
+
+Weekly planner.
+
+Monthly planner.
+
+MOOD TRACKER
+
+Redesign completely.
+
+Do not simply use emojis.
+
+Create beautiful mood cards.
+
+Track
+
+Mood
+
+Energy
+
+Stress
+
+Focus
+
+Sleep quality
+
+Confidence
+
+Display
+
+Weekly charts
+
+Monthly trends
+
+Mood calendar
+
+Correlations with
+
+Habits
+
+Meditation
+
+Journal
+
+AI insights
+
+MEDITATION
+
+The meditation feature must actually work.
+
+Currently pressing play does nothing.
+
+Implement guided meditation generation.
+
+Each meditation should generate a spoken meditation using AI.
+
+Use OpenAI Text-to-Speech or ElevenLabs.
+
+Generate calming natural speech.
+
+Meditations should include
+
+Morning Calm
+
+Deep Focus
+
+Sleep
+
+Stress Relief
+
+Anxiety
+
+Confidence
+
+Motivation
+
+Gratitude
+
+The generated meditation should use information about the user's goals, mood, habits and journal.
+
+Example
+
+If the user has been stressed
+
+Generate a calming meditation.
+
+If the user has exams
+
+Generate a focus meditation.
+
+Include
+
+Play
+
+Pause
+
+Seek
+
+Progress
+
+Remaining time
+
+Background ambient animations.
+
+INSIGHTS
+
+Generate beautiful AI insights.
+
+Examples
+
+Your happiest day was Wednesday.
+
+You journal more when your mood improves.
+
+Meditation reduced stress.
+
+You are most productive after exercising.
+
+Visualize everything beautifully.
+
+SETTINGS
+
+Theme
+
+Notifications
+
+Voice selection
+
+AI personality
+
+Export data
+
+Delete account
+
+DESIGN SYSTEM
+
+Do NOT make the UI look futuristic.
+
+Do NOT make it look like an admin panel.
+
+Use
+
+Apple
+
+Headspace
+
+Calm
+
+Notion
+
+as inspiration.
+
+Typography
+
+Mix elegant serif headings with modern sans-serif body text.
+
+Large whitespace.
+
+Subtle shadows.
+
+Minimal colors.
+
+Background
+
+Near black.
+
+Cards
+
+Soft charcoal.
+
+Accent
+
+Soft lavender.
+
+Micro interactions everywhere.
+
+Smooth page transitions.
+
+Beautiful loading states.
+
+Elegant empty states.
+
+No generic templates.
+
+BACKEND
+
+Verify that every frontend feature is connected to the backend.
+
+Fix broken API routes.
+
+Fix database persistence.
+
+Fix CRUD operations.
+
+Fix authentication.
+
+Fix OpenAI integration.
+
+Fix chat.
+
+Fix meditation generation.
+
+Fix journal saving.
+
+Fix habit tracking.
+
+Fix goal persistence.
+
+Handle all loading and error states gracefully.
+
+FINAL GOAL
+
+Ella should feel like a real premium AI companion that someone would download and use every day.
+
+Every feature must be fully functional, polished, connected to the backend, and presentation-ready.
+
+The application should be impressive enough that it stands out in a software engineering portfolio and demonstrates strong full-stack engineering, AI integration, clean architecture, and thoughtful product design.
+
+One additional recommendation: implement the chat first. Everything else (journal summaries, personalized meditation, AI insights) depends on a reliable AI backend.
