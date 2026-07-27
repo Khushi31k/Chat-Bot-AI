@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { db, conversations, messages, journalEntriesTable } from "@workspace/db";
+import { db, conversations, messages, journalEntriesTable, memoriesTable } from "@workspace/db";
 import { eq, asc, desc } from "drizzle-orm";
 import { openai } from "@workspace/integrations-openai-ai-server";
 import {
@@ -117,18 +117,37 @@ router.post("/openai/conversations/:id/messages", async (req, res): Promise<void
     .where(eq(messages.conversationId, conversationId))
     .orderBy(asc(messages.createdAt));
 
-  // Fetch journal entries for personalized context
+  // Fetch journal entries and memories for personalized context
   let journalContext = "";
+  let memoriesContext = "";
   try {
-    const journals = await db
-      .select()
-      .from(journalEntriesTable)
-      .where(eq(journalEntriesTable.userId, userId))
-      .orderBy(desc(journalEntriesTable.date));
+    const [journals, memories] = await Promise.all([
+      db
+        .select()
+        .from(journalEntriesTable)
+        .where(eq(journalEntriesTable.userId, userId))
+        .orderBy(desc(journalEntriesTable.date)),
+      db
+        .select()
+        .from(memoriesTable)
+        .where(eq(memoriesTable.userId, userId))
+        .orderBy(desc(memoriesTable.pinned), desc(memoriesTable.createdAt)),
+    ]);
+
     if (journals.length > 0) {
       journalContext = `\n\nUser's recent journal entries (use for context and personalization):\n${journals
         .slice(0, 10)
         .map((j) => `[${j.date}${j.mood ? `, mood: ${j.mood}` : ""}]: ${j.content.slice(0, 400)}`)
+        .join("\n")}`;
+    }
+
+    // Inject pinned memories first, then up to 5 most recent
+    const pinnedMems = memories.filter((m) => m.pinned);
+    const regularMems = memories.filter((m) => !m.pinned).slice(0, 5);
+    const relevantMems = [...pinnedMems, ...regularMems];
+    if (relevantMems.length > 0) {
+      memoriesContext = `\n\nThings the user has explicitly told you to remember:\n${relevantMems
+        .map((m) => `- ${m.title}: ${m.content}`)
         .join("\n")}`;
     }
   } catch (_) {
@@ -139,7 +158,7 @@ router.post("/openai/conversations/:id/messages", async (req, res): Promise<void
 You know this person through their journal entries and conversations.
 You provide thoughtful, personalized responses that feel genuine and caring.
 You're not just an assistant — you're a companion who remembers, understands, and grows with the user.
-Keep responses concise but meaningful. Be specific, not generic. Never use emojis.${journalContext}`;
+Keep responses concise but meaningful. Be specific, not generic. Never use emojis.${memoriesContext}${journalContext}`;
 
   const chatMessages = [
     { role: "system" as const, content: systemPrompt },

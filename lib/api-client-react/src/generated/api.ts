@@ -24,7 +24,9 @@ import type {
   AuthResponse,
   CalendarEvent,
   CalendarEventInput,
+  DeleteMemoryParams,
   ErrorResponse,
+  GetInsightsParams,
   Goal,
   GoalInput,
   GoalUpdate,
@@ -33,18 +35,24 @@ import type {
   HabitLog,
   HabitLogInput,
   HealthStatus,
+  InsightsResponse,
   JournalEntry,
   JournalEntryInput,
   JournalEntryUpdate,
+  JournalSummaryResponse,
   ListCalendarEventsParams,
   ListGoalsParams,
   ListHabitLogsParams,
   ListHabitsParams,
   ListJournalEntriesParams,
+  ListMemoriesParams,
   ListMoodLogsParams,
   ListOpenaiConversationsParams,
   MeditationInput,
   MeditationPreset,
+  Memory,
+  MemoryInput,
+  MemoryUpdate,
   MoodLog,
   MoodLogInput,
   OpenaiConversation,
@@ -1808,6 +1816,539 @@ export const useDeleteCalendarEvent = <TError = ErrorType<ErrorResponse>,
         TContext
       > => {
       return useMutation(getDeleteCalendarEventMutationOptions(options));
+    }
+
+export const getListMemoriesUrl = (params: ListMemoriesParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/memories?${stringifiedParams}` : `/api/memories`
+}
+
+/**
+ * @summary List memories for a user
+ */
+export const listMemories = async (params: ListMemoriesParams, options?: RequestInit): Promise<Memory[]> => {
+
+  return customFetch<Memory[]>(getListMemoriesUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListMemoriesQueryKey = (params?: ListMemoriesParams,) => {
+    return [
+    `/api/memories`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListMemoriesQueryOptions = <TData = Awaited<ReturnType<typeof listMemories>>, TError = ErrorType<unknown>>(params: ListMemoriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listMemories>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListMemoriesQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listMemories>>> = ({ signal }) => listMemories(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listMemories>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListMemoriesQueryResult = NonNullable<Awaited<ReturnType<typeof listMemories>>>
+export type ListMemoriesQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List memories for a user
+ */
+
+export function useListMemories<TData = Awaited<ReturnType<typeof listMemories>>, TError = ErrorType<unknown>>(
+ params: ListMemoriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listMemories>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListMemoriesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getCreateMemoryUrl = () => {
+
+
+
+
+  return `/api/memories`
+}
+
+/**
+ * @summary Create a memory
+ */
+export const createMemory = async (memoryInput: MemoryInput, options?: RequestInit): Promise<Memory> => {
+
+  return customFetch<Memory>(getCreateMemoryUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(memoryInput)
+  }
+);}
+
+
+
+
+
+export const getCreateMemoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createMemory>>, TError,{data: BodyType<MemoryInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createMemory>>, TError,{data: BodyType<MemoryInput>}, TContext> => {
+
+const mutationKey = ['createMemory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createMemory>>, {data: BodyType<MemoryInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createMemory(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateMemoryMutationResult = NonNullable<Awaited<ReturnType<typeof createMemory>>>
+    export type CreateMemoryMutationBody = BodyType<MemoryInput>
+    export type CreateMemoryMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Create a memory
+ */
+export const useCreateMemory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createMemory>>, TError,{data: BodyType<MemoryInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createMemory>>,
+        TError,
+        {data: BodyType<MemoryInput>},
+        TContext
+      > => {
+      return useMutation(getCreateMemoryMutationOptions(options));
+    }
+
+export const getUpdateMemoryUrl = (id: number,) => {
+
+
+
+
+  return `/api/memories/${id}`
+}
+
+/**
+ * @summary Update a memory
+ */
+export const updateMemory = async (id: number,
+    memoryUpdate: MemoryUpdate, options?: RequestInit): Promise<Memory> => {
+
+  return customFetch<Memory>(getUpdateMemoryUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(memoryUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateMemoryMutationOptions = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{id: number;data: BodyType<MemoryUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{id: number;data: BodyType<MemoryUpdate>}, TContext> => {
+
+const mutationKey = ['updateMemory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMemory>>, {id: number;data: BodyType<MemoryUpdate>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateMemory(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMemoryMutationResult = NonNullable<Awaited<ReturnType<typeof updateMemory>>>
+    export type UpdateMemoryMutationBody = BodyType<MemoryUpdate>
+    export type UpdateMemoryMutationError = ErrorType<ErrorResponse>
+
+    /**
+ * @summary Update a memory
+ */
+export const useUpdateMemory = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{id: number;data: BodyType<MemoryUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateMemory>>,
+        TError,
+        {id: number;data: BodyType<MemoryUpdate>},
+        TContext
+      > => {
+      return useMutation(getUpdateMemoryMutationOptions(options));
+    }
+
+export const getDeleteMemoryUrl = (id: number,
+    params: DeleteMemoryParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/memories/${id}?${stringifiedParams}` : `/api/memories/${id}`
+}
+
+/**
+ * @summary Delete a memory
+ */
+export const deleteMemory = async (id: number,
+    params: DeleteMemoryParams, options?: RequestInit): Promise<void> => {
+
+  return customFetch<void>(getDeleteMemoryUrl(id,params),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeleteMemoryMutationOptions = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMemory>>, TError,{id: number;params: DeleteMemoryParams}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteMemory>>, TError,{id: number;params: DeleteMemoryParams}, TContext> => {
+
+const mutationKey = ['deleteMemory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteMemory>>, {id: number;params: DeleteMemoryParams}> = (props) => {
+          const {id,params} = props ?? {};
+
+          return  deleteMemory(id,params,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteMemoryMutationResult = NonNullable<Awaited<ReturnType<typeof deleteMemory>>>
+
+    export type DeleteMemoryMutationError = ErrorType<ErrorResponse>
+
+    /**
+ * @summary Delete a memory
+ */
+export const useDeleteMemory = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMemory>>, TError,{id: number;params: DeleteMemoryParams}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof deleteMemory>>,
+        TError,
+        {id: number;params: DeleteMemoryParams},
+        TContext
+      > => {
+      return useMutation(getDeleteMemoryMutationOptions(options));
+    }
+
+export const getGetInsightsUrl = (params: GetInsightsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/insights?${stringifiedParams}` : `/api/insights`
+}
+
+/**
+ * @summary Get AI-generated insights for a user
+ */
+export const getInsights = async (params: GetInsightsParams, options?: RequestInit): Promise<InsightsResponse> => {
+
+  return customFetch<InsightsResponse>(getGetInsightsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetInsightsQueryKey = (params?: GetInsightsParams,) => {
+    return [
+    `/api/insights`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetInsightsQueryOptions = <TData = Awaited<ReturnType<typeof getInsights>>, TError = ErrorType<unknown>>(params: GetInsightsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getInsights>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetInsightsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInsights>>> = ({ signal }) => getInsights(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getInsights>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetInsightsQueryResult = NonNullable<Awaited<ReturnType<typeof getInsights>>>
+export type GetInsightsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get AI-generated insights for a user
+ */
+
+export function useGetInsights<TData = Awaited<ReturnType<typeof getInsights>>, TError = ErrorType<unknown>>(
+ params: GetInsightsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getInsights>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetInsightsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSummarizeJournalEntryUrl = (id: number,) => {
+
+
+
+
+  return `/api/journal/${id}/summary`
+}
+
+/**
+ * @summary Generate an AI summary of a journal entry
+ */
+export const summarizeJournalEntry = async (id: number, options?: RequestInit): Promise<JournalSummaryResponse> => {
+
+  return customFetch<JournalSummaryResponse>(getSummarizeJournalEntryUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getSummarizeJournalEntryMutationOptions = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof summarizeJournalEntry>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof summarizeJournalEntry>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['summarizeJournalEntry'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof summarizeJournalEntry>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  summarizeJournalEntry(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SummarizeJournalEntryMutationResult = NonNullable<Awaited<ReturnType<typeof summarizeJournalEntry>>>
+
+    export type SummarizeJournalEntryMutationError = ErrorType<ErrorResponse>
+
+    /**
+ * @summary Generate an AI summary of a journal entry
+ */
+export const useSummarizeJournalEntry = <TError = ErrorType<ErrorResponse>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof summarizeJournalEntry>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof summarizeJournalEntry>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getSummarizeJournalEntryMutationOptions(options));
+    }
+
+export const getGenerateMeditationAudioUrl = () => {
+
+
+
+
+  return `/api/meditation/audio`
+}
+
+/**
+ * @summary Generate a meditation script and return TTS audio
+ */
+export const generateMeditationAudio = async (meditationInput: MeditationInput, options?: RequestInit): Promise<Blob> => {
+
+  return customFetch<Blob>(getGenerateMeditationAudioUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(meditationInput)
+  }
+);}
+
+
+
+
+
+export const getGenerateMeditationAudioMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateMeditationAudio>>, TError,{data: BodyType<MeditationInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof generateMeditationAudio>>, TError,{data: BodyType<MeditationInput>}, TContext> => {
+
+const mutationKey = ['generateMeditationAudio'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof generateMeditationAudio>>, {data: BodyType<MeditationInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  generateMeditationAudio(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type GenerateMeditationAudioMutationResult = NonNullable<Awaited<ReturnType<typeof generateMeditationAudio>>>
+    export type GenerateMeditationAudioMutationBody = BodyType<MeditationInput>
+    export type GenerateMeditationAudioMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Generate a meditation script and return TTS audio
+ */
+export const useGenerateMeditationAudio = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateMeditationAudio>>, TError,{data: BodyType<MeditationInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof generateMeditationAudio>>,
+        TError,
+        {data: BodyType<MeditationInput>},
+        TContext
+      > => {
+      return useMutation(getGenerateMeditationAudioMutationOptions(options));
     }
 
 export const getGenerateMeditationUrl = () => {

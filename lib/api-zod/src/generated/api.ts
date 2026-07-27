@@ -411,6 +411,123 @@ export const DeleteCalendarEventResponse = zod.void()
 
 
 /**
+ * @summary List memories for a user
+ */
+export const ListMemoriesQueryParams = zod.object({
+  "userId": zod.coerce.number(),
+  "search": zod.coerce.string().optional()
+})
+
+export const ListMemoriesResponseItem = zod.object({
+  "id": zod.number(),
+  "userId": zod.number(),
+  "title": zod.string(),
+  "content": zod.string(),
+  "pinned": zod.boolean(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+export const ListMemoriesResponse = zod.array(ListMemoriesResponseItem)
+
+
+/**
+ * @summary Create a memory
+ */
+export const CreateMemoryBody = zod.object({
+  "userId": zod.number(),
+  "title": zod.string(),
+  "content": zod.string(),
+  "pinned": zod.boolean().optional()
+})
+
+export const CreateMemoryResponse = zod.object({
+  "id": zod.number(),
+  "userId": zod.number(),
+  "title": zod.string(),
+  "content": zod.string(),
+  "pinned": zod.boolean(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Update a memory
+ */
+export const UpdateMemoryParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateMemoryBody = zod.object({
+  "userId": zod.number(),
+  "title": zod.string().optional(),
+  "content": zod.string().optional(),
+  "pinned": zod.boolean().optional()
+})
+
+export const UpdateMemoryResponse = zod.object({
+  "id": zod.number(),
+  "userId": zod.number(),
+  "title": zod.string(),
+  "content": zod.string(),
+  "pinned": zod.boolean(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Delete a memory
+ */
+export const DeleteMemoryParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const DeleteMemoryQueryParams = zod.object({
+  "userId": zod.coerce.number()
+})
+
+export const DeleteMemoryResponse = zod.void()
+
+
+/**
+ * @summary Get AI-generated insights for a user
+ */
+export const GetInsightsQueryParams = zod.object({
+  "userId": zod.coerce.number()
+})
+
+export const GetInsightsResponse = zod.object({
+  "insights": zod.array(zod.string())
+})
+
+
+/**
+ * @summary Generate an AI summary of a journal entry
+ */
+export const SummarizeJournalEntryParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const SummarizeJournalEntryResponse = zod.object({
+  "summary": zod.string()
+})
+
+
+/**
+ * @summary Generate a meditation script and return TTS audio
+ */
+export const GenerateMeditationAudioBody = zod.object({
+  "userId": zod.number(),
+  "theme": zod.string(),
+  "duration": zod.number(),
+  "mood": zod.string().optional()
+})
+
+export const GenerateMeditationAudioResponse = zod.unknown()
+
+
+/**
  * @summary Generate a personalized guided meditation (SSE stream)
  */
 export const GenerateMeditationBody = zod.object({

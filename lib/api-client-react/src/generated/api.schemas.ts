@@ -192,6 +192,38 @@ export interface OpenaiError {
   error: string;
 }
 
+export interface Memory {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+  pinned: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MemoryInput {
+  userId: number;
+  title: string;
+  content: string;
+  pinned?: boolean;
+}
+
+export interface MemoryUpdate {
+  userId: number;
+  title?: string;
+  content?: string;
+  pinned?: boolean;
+}
+
+export interface InsightsResponse {
+  insights: string[];
+}
+
+export interface JournalSummaryResponse {
+  summary: string;
+}
+
 export type ListJournalEntriesParams = {
 userId: number;
 };
@@ -213,6 +245,19 @@ userId: number;
 };
 
 export type ListCalendarEventsParams = {
+userId: number;
+};
+
+export type ListMemoriesParams = {
+userId: number;
+search?: string;
+};
+
+export type DeleteMemoryParams = {
+userId: number;
+};
+
+export type GetInsightsParams = {
 userId: number;
 };
 
