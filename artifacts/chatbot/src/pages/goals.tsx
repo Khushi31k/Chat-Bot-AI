@@ -30,7 +30,7 @@ export default function Goals() {
   const [category, setCategory] = useState(PURE_CATEGORIES[0]);
   const [targetDate, setTargetDate] = useState('');
 
-  const { data: goals, isLoading } = useListGoals({ userId }, { query: { enabled: !!userId } });
+  const { data: goals, isLoading } = useListGoals({ userId }, { query: { queryKey: getListGoalsQueryKey({ userId }), enabled: !!userId } });
   
   const createGoal = useCreateGoal();
   const updateGoal = useUpdateGoal();
@@ -76,7 +76,7 @@ export default function Goals() {
   const filteredGoals = goals?.filter(g => activeTab === 'All' || g.category === activeTab);
 
   // SVG Progress Ring Component
-  const ProgressRing = ({ progress, size = 120, strokeWidth = 8, color = 'var(--primary)' }) => {
+  const ProgressRing = ({ progress, size = 120, strokeWidth = 8 }: { progress: number; size?: number; strokeWidth?: number }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
     const offset = circumference - (progress / 100) * circumference;

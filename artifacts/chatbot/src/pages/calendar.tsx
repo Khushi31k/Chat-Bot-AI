@@ -32,7 +32,7 @@ export default function Calendar() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('event');
 
-  const { data: events, isLoading } = useListCalendarEvents({ userId }, { query: { enabled: !!userId } });
+  const { data: events, isLoading } = useListCalendarEvents({ userId }, { query: { queryKey: getListCalendarEventsQueryKey({ userId }), enabled: !!userId } });
   
   const createEvent = useCreateCalendarEvent();
   const deleteEvent = useDeleteCalendarEvent();

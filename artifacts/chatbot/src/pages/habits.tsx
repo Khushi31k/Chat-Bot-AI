@@ -48,8 +48,8 @@ export default function Habits() {
   const [iconStr, setIconStr] = useState(ICONS[0].id);
   const [color, setColor] = useState(COLORS[0]);
 
-  const { data: habits, isLoading } = useListHabits({ userId }, { query: { enabled: !!userId } });
-  const { data: logs, isLoading: isLoadingLogs } = useListHabitLogs({ userId }, { query: { enabled: !!userId } });
+  const { data: habits, isLoading } = useListHabits({ userId }, { query: { queryKey: getListHabitsQueryKey({ userId }), enabled: !!userId } });
+  const { data: logs, isLoading: isLoadingLogs } = useListHabitLogs({ userId }, { query: { queryKey: getListHabitLogsQueryKey({ userId }), enabled: !!userId } });
 
   const createHabit = useCreateHabit();
   const deleteHabit = useDeleteHabit();
@@ -86,7 +86,7 @@ export default function Habits() {
     const todayLog = logs?.find(l => l.habitId === habitId && l.date.startsWith(todayStr));
     
     if (todayLog) {
-      unlogHabit.mutate({ id: todayLog.id }, {
+      unlogHabit.mutate({ id: todayLog.id, date: todayLog.date?.slice(0, 10) ?? todayStr }, {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: getListHabitLogsQueryKey({ userId }) })
       });
     } else {

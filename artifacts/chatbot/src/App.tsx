@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { Layout } from '@/components/layout';
 
 // Page imports
+import Landing from '@/pages/landing';
 import Login from '@/pages/login';
 import Dashboard from '@/pages/dashboard';
 import Chat from '@/pages/chat';
@@ -15,6 +16,9 @@ import Goals from '@/pages/goals';
 import Calendar from '@/pages/calendar';
 import Mood from '@/pages/mood';
 import Meditation from '@/pages/meditation';
+import Memory from '@/pages/memory';
+import Insights from '@/pages/insights';
+import Settings from '@/pages/settings';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,7 +49,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/">
-        {user ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+        {user ? <Redirect to="/dashboard" /> : <Landing />}
       </Route>
       <Route path="/login" component={Login} />
       
@@ -57,6 +61,9 @@ function Router() {
       <Route path="/calendar"><ProtectedRoute component={Calendar} /></Route>
       <Route path="/mood"><ProtectedRoute component={Mood} /></Route>
       <Route path="/meditation"><ProtectedRoute component={Meditation} /></Route>
+      <Route path="/memory"><ProtectedRoute component={Memory} /></Route>
+      <Route path="/insights"><ProtectedRoute component={Insights} /></Route>
+      <Route path="/settings"><ProtectedRoute component={Settings} /></Route>
 
       <Route>
         <div className="min-h-screen bg-background text-foreground flex items-center justify-center font-serif text-2xl">
