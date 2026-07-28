@@ -289,7 +289,21 @@ export default function Meditation() {
   const progress = duration_total > 0 ? (currentTime / duration_total) * 100 : 0;
 
   return (
-    <div className="p-6 md:p-10 max-w-5xl mx-auto w-full flex flex-col min-h-[calc(100dvh-4rem)] md:min-h-[100dvh]">
+    <div className="p-6 md:p-10 max-w-5xl mx-auto w-full flex flex-col min-h-[calc(100dvh-4rem)] md:min-h-[100dvh] relative overflow-hidden">
+
+      {/* Background breathing orbs */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 65%)' }}
+        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0.75, 0.4] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 65%)' }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+      />
 
       {/* Header */}
       <motion.div

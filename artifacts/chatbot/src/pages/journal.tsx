@@ -224,7 +224,7 @@ export default function Journal() {
       </div>
 
       {/* Editor Area */}
-      <div className="flex-1 flex flex-col relative overflow-hidden" style={{ background: '#0d0d0f' }}>
+      <div className="flex-1 flex flex-col relative overflow-hidden" style={{ background: '#0c0c10', boxShadow: 'inset 6px 0 24px rgba(0,0,0,0.35), inset -6px 0 24px rgba(0,0,0,0.2)' }}>
         
         {!activeEntryId ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
@@ -348,21 +348,29 @@ export default function Journal() {
             </AnimatePresence>
 
             {/* Lined Paper Textarea */}
-            <div className="flex-1 overflow-y-auto no-scrollbar relative">
-              {/* Lined paper effect */}
-              <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{
-                  backgroundImage: 'repeating-linear-gradient(transparent, transparent 31px, rgba(255,255,255,0.3) 31px, rgba(255,255,255,0.3) 32px)',
-                  backgroundPosition: '0 48px',
-                  backgroundSize: '100% 32px',
-                }}
-              />
+            <div
+              className="flex-1 overflow-y-auto no-scrollbar relative"
+              style={{
+                /* Ruled lines + left red margin, scrolling with content */
+                backgroundImage: [
+                  /* vertical red margin line */
+                  'linear-gradient(to right, transparent 79px, rgba(239,68,68,0.18) 79px, rgba(239,68,68,0.18) 80px, transparent 80px)',
+                  /* horizontal ruled lines */
+                  'repeating-linear-gradient(transparent, transparent 31px, rgba(255,255,255,0.07) 31px, rgba(255,255,255,0.07) 32px)',
+                ].join(', '),
+                backgroundPosition: '0 0, 0 48px',
+                backgroundSize: 'auto, 100% 32px',
+                /* scroll with content so lines stay under text */
+                backgroundAttachment: 'local',
+                /* subtle inner vignette for page depth */
+                boxShadow: 'inset 8px 0 24px rgba(0,0,0,0.25), inset -8px 0 24px rgba(0,0,0,0.15)',
+              }}
+            >
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="What's on your mind today?"
-                className="w-full h-full min-h-[500px] bg-transparent text-white/85 placeholder:text-white/15 text-lg leading-[2rem] focus:outline-none resize-none font-serif px-10 md:px-16 py-12"
+                className="w-full h-full min-h-[500px] bg-transparent text-white/85 placeholder:text-white/15 text-lg focus:outline-none resize-none font-serif px-10 md:px-16 py-12"
                 autoFocus
                 style={{ lineHeight: '2rem' }}
               />
