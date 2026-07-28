@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ShaderBackground } from '@/components/ui/electric-aura';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -179,7 +180,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-h-[100dvh] pt-16 md:pt-0 w-full overflow-x-hidden">
+      <main className="flex-1 flex flex-col min-h-[100dvh] pt-16 md:pt-0 w-full overflow-x-hidden relative">
+        <ShaderBackground className="absolute inset-0 opacity-[0.13] pointer-events-none" />
         <AnimatePresence mode="wait">
           <motion.div 
             key={location}
