@@ -351,15 +351,10 @@ export default function Journal() {
             <div
               className="flex-1 overflow-y-auto no-scrollbar relative"
               style={{
-                /* Ruled lines + left red margin, scrolling with content */
-                backgroundImage: [
-                  /* vertical red margin line */
-                  'linear-gradient(to right, transparent 79px, rgba(239,68,68,0.18) 79px, rgba(239,68,68,0.18) 80px, transparent 80px)',
-                  /* horizontal ruled lines */
-                  'repeating-linear-gradient(transparent, transparent 31px, rgba(255,255,255,0.07) 31px, rgba(255,255,255,0.07) 32px)',
-                ].join(', '),
-                backgroundPosition: '0 0, 0 48px',
-                backgroundSize: 'auto, 100% 32px',
+                /* Ruled lines scrolling with content */
+                backgroundImage: 'repeating-linear-gradient(transparent, transparent 31px, rgba(255,255,255,0.07) 31px, rgba(255,255,255,0.07) 32px)',
+                backgroundPosition: '0 48px',
+                backgroundSize: '100% 32px',
                 /* scroll with content so lines stay under text */
                 backgroundAttachment: 'local',
                 /* subtle inner vignette for page depth */

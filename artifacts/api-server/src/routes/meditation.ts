@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { openai } from "@workspace/integrations-openai-ai-server";
+import { textToSpeech } from "@workspace/integrations-openai-ai-server/audio";
 import { GenerateMeditationBody } from "@workspace/api-zod";
-import { Readable } from "stream";
 
 const router: IRouter = Router();
 
@@ -97,20 +97,14 @@ Use natural pacing cues like "...take a deep breath..." and "...allow yourself t
 
     const script = scriptCompletion.choices[0]?.message?.content ?? "";
 
-    // Then convert to speech
-    const ttsResponse = await openai.audio.speech.create({
-      model: "tts-1",
-      voice: "nova",
-      input: script,
-    });
+    // Convert script to speech via gpt-audio
+    const audioBuffer = await textToSpeech(script, "nova", "mp3");
 
-    // Stream the audio back to the client
+    // Send the audio back to the client
     res.setHeader("Content-Type", "audio/mpeg");
     res.setHeader("Cache-Control", "no-cache");
-
-    const audioBuffer = await ttsResponse.arrayBuffer();
-    const readable = Readable.from(Buffer.from(audioBuffer));
-    readable.pipe(res);
+    res.setHeader("Content-Length", String(audioBuffer.length));
+    res.end(audioBuffer);
   } catch (err) {
     res.status(500).json({ error: "Failed to generate meditation audio" });
   }
