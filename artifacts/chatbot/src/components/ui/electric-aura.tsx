@@ -223,35 +223,35 @@ const UNIFORMS = {
     [0.247, 0.110, 0.741],               // deep indigo-purple
     [0.388, 0.278, 0.941],               // ELLA primary indigo
     [0.671, 0.451, 0.980],               // bright violet
-    [0.937, 0.922, 1.000],               // soft lavender white
-    [0.937, 0.922, 1.000],
-    [0.937, 0.922, 1.000],
-    [0.937, 0.922, 1.000],
+    [0.820, 0.760, 1.000],               // soft lavender
+    [0.820, 0.760, 1.000],
+    [0.820, 0.760, 1.000],
+    [0.820, 0.760, 1.000],
   ] as [number, number, number][],
   colorCount: 5,
-  scale: 1.920,
-  intensity: 0.330,
+  scale: 1.500,
+  intensity: 0.520,       // more spread energy
   paramA: 0.500,
-  warp: 0.000,
-  detail: 2.400,
-  contrast: 0.906,
-  brightness: 0.000,
-  saturation: 1.100,
+  warp: 0.420,            // organic flowing distortion
+  detail: 2.800,
+  contrast: 0.940,
+  brightness: 0.020,
+  saturation: 1.200,
   hue: 0.0000,
   vignette: 0.000,
   blur: 0.0000,
-  grain: 0.025,
+  grain: 0.018,
   seed: 8808.0,
   rotate: 0.0000,
   offsetX: 0.000,
   offsetY: 0.000,
-  drift: 0.000,
+  drift: 0.380,           // slow organic drift / movement
   cursorEnabled: false,
   cursorEffect: 2.0,
   cursorStrength: 0.650,
   cursorRadius: 0.460,
   oklab: 0.0,
-  timeScale: 0.746,
+  timeScale: 1.10,        // slightly faster animation
 }
 
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()

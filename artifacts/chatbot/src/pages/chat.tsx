@@ -226,7 +226,7 @@ export default function Chat() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col relative overflow-hidden" style={{ background: '#0d0d0f' }}>
         {/* WebGL shader orb — very subtle purple watermark */}
-        <ShaderBackground className="absolute inset-0 opacity-[0.07] pointer-events-none" />
+        <ShaderBackground className="absolute inset-0 opacity-[0.18] pointer-events-none" />
 
         {!activeConvId ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative z-10">

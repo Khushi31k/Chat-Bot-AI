@@ -80,7 +80,7 @@ export default function Login() {
     <div className="min-h-[100dvh] w-full bg-[#0a0a0f] flex items-center justify-center relative overflow-hidden text-foreground">
       
       {/* WebGL shader orb — very subtle purple watermark */}
-      <ShaderBackground className="absolute inset-0 opacity-[0.07] pointer-events-none" />
+      <ShaderBackground className="absolute inset-0 opacity-[0.22] pointer-events-none" />
 
       <div className="w-full max-w-md p-8 relative z-10">
         <motion.div 
