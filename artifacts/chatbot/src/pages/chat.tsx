@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ShaderBackground } from '@/components/ui/electric-aura';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
   useListOpenaiConversations, 
@@ -224,8 +225,8 @@ export default function Chat() {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col relative overflow-hidden" style={{ background: '#0d0d0f' }}>
-        {/* Background glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+        {/* WebGL shader orb — very subtle purple watermark */}
+        <ShaderBackground className="absolute inset-0 opacity-[0.07] pointer-events-none" />
 
         {!activeConvId ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative z-10">

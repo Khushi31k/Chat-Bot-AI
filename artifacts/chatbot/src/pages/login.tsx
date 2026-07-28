@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ShaderBackground } from '@/components/ui/electric-aura';
 import { useLogin, useRegister } from '@workspace/api-client-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
@@ -78,32 +79,8 @@ export default function Login() {
   return (
     <div className="min-h-[100dvh] w-full bg-[#0a0a0f] flex items-center justify-center relative overflow-hidden text-foreground">
       
-      {/* Animated background orbs */}
-      <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full bg-primary/20 blur-[120px] pointer-events-none"
-        animate={{ 
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ 
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-purple-500/10 blur-[100px] pointer-events-none"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ 
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-      />
+      {/* WebGL shader orb — very subtle purple watermark */}
+      <ShaderBackground className="absolute inset-0 opacity-[0.07] pointer-events-none" />
 
       <div className="w-full max-w-md p-8 relative z-10">
         <motion.div 
