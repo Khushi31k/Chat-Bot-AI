@@ -355,7 +355,7 @@ export function ShaderBackground({ className }: { className?: string }) {
     const onVis = () => { visible = document.visibilityState === "visible"; if (visible) requestRender(); else { cancelAnimationFrame(raf); raf = 0; lastNow = null } }
     document.addEventListener("visibilitychange", onVis)
 
-    function render(now: number) {
+    const render = (now: number) => {
       raf = 0
       if (disposed || !visible || !inView) return
       const dt = lastNow === null ? 0 : Math.min((now - lastNow) / 1000, 0.1)

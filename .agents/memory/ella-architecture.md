@@ -16,7 +16,7 @@ description: Full-stack AI companion app structure, key design decisions, and Ty
 - All protected routes use `<Layout>` wrapper which renders sidebar nav
 
 ## TypeScript quirks (important)
-- `lib/api-client-react` uses **TypeScript project references** — `dist/` must be rebuilt with `cd lib/api-client-react && pnpm tsc --build` whenever the generated API changes. The chatbot reads from `dist/`, not `src/` directly.
+- `lib/api-client-react` uses **TypeScript project references** — `dist/` must be rebuilt with `cd lib/api-client-react && bun x tsc --build` whenever the generated API changes. The chatbot reads from `dist/`, not `src/` directly.
 - `UseQueryOptions` (tanstack-query v5) requires `queryKey` field — always pass `queryKey: getXxxQueryKey(params)` alongside `enabled`
 - `useRef<T>()` with 0 args fails strict TS — use `useRef<T | undefined>(undefined)` 
 - Framer Motion `Variants` with spring transition needs `type: 'spring' as const`

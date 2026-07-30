@@ -1,16 +1,17 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-import pg from "pg";
+import { Database } from "bun:sqlite";
+import { drizzle } from "drizzle-orm/bun-sqlite";
+import { fileURLToPath } from "node:url";
 import * as schema from "./schema";
 
-const { Pool } = pg;
+const defaultDatabaseFile = fileURLToPath(
+  new URL("../../../data/ella.sqlite", import.meta.url),
+);
+const databaseFile = process.env.DB_FILE_NAME ?? defaultDatabaseFile;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
+export const sqlite = new Database(databaseFile, { create: true });
+sqlite.exec("PRAGMA foreign_keys = ON;");
+sqlite.exec("PRAGMA journal_mode = WAL;");
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+export const db = drizzle({ client: sqlite, schema });
 
 export * from "./schema";

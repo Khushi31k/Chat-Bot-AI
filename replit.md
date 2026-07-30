@@ -4,18 +4,20 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `bun run dev` — run the API and chatbot together
+- `bun run --filter @workspace/api-server dev` — run the API server (port 8080)
+- `bun run typecheck` — full typecheck across all packages
+- `bun run build` — typecheck + build all packages
+- `bun run --filter @workspace/api-spec codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
+- `bun run --filter @workspace/db push` — push DB schema changes (dev only)
+- Optional env: `DB_FILE_NAME` — SQLite database path (defaults to `data/ella.sqlite`)
+- Optional env: `OPENAI_API_KEY`, or Replit's `AI_INTEGRATIONS_OPENAI_API_KEY` and `AI_INTEGRATIONS_OPENAI_BASE_URL`, for AI features
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
+- Bun workspaces, Node.js 24, TypeScript 5.9
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
+- DB: SQLite + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
 - Build: esbuild (CJS bundle)
@@ -42,4 +44,4 @@ _Populate as you build — sharp edges, "always run X before Y" rules._
 
 ## Pointers
 
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Root `package.json` defines the workspace structure and shared dependency catalog.

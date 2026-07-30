@@ -1,14 +1,16 @@
 import { defineConfig } from "drizzle-kit";
 import path from "path";
+import { fileURLToPath } from "node:url";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL, ensure the database is provisioned");
-}
+const configDirectory = path.dirname(fileURLToPath(import.meta.url));
+const databaseFile =
+  process.env.DB_FILE_NAME ??
+  path.resolve(configDirectory, "../../data/ella.sqlite");
 
 export default defineConfig({
-  schema: path.join(__dirname, "./src/schema/index.ts"),
-  dialect: "postgresql",
+  schema: path.join(configDirectory, "./src/schema/index.ts"),
+  dialect: "sqlite",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: databaseFile,
   },
 });

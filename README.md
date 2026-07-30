@@ -32,8 +32,8 @@ Unlike traditional chatbots or productivity apps, ELLA learns from your interact
 | **Project Type** | Full-Stack AI Productivity Platform |
 | **Status** | Active Development |
 | **Frontend** | React, TypeScript, Tailwind CSS |
-| **Backend** | Node.js, Express |
-| **Database** | PostgreSQL |
+| **Backend** | Bun, Express |
+| **Database** | SQLite |
 | **AI** | OpenAI API |
 | **Deployment** | Replit |
 | **License** | MIT |
@@ -51,9 +51,9 @@ Unlike traditional chatbots or productivity apps, ELLA learns from your interact
 - Lucide React
 
 ### Backend
-- Node.js
+- Bun
 - Express.js
-- PostgreSQL
+- SQLite
 
 ### AI
 - OpenAI API
@@ -156,14 +156,17 @@ cd ELLA-AI-Personal-Companion
 Install dependencies
 
 ```bash
-npm install
+bun install
 ```
 
-Run the development server
+Run the frontend and API together
 
 ```bash
-npm run dev
+bun run dev
 ```
+
+The app is available at `http://localhost:22967`. SQLite data is stored
+locally in `data/ella.sqlite` and the schema is created automatically.
 
 ---
 

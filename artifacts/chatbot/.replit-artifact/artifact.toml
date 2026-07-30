@@ -11,10 +11,10 @@ paths = [ "/" ]
 localPort = 22967
 
 [services.development]
-run = "pnpm --filter @workspace/chatbot run dev"
+run = "bun run --filter @workspace/chatbot dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/chatbot", "run", "build" ]
+build = [ "bun", "run", "--filter", "@workspace/chatbot", "build" ]
 serve = "static"
 publicDir = "artifacts/chatbot/dist/public"
 

@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db, memoriesTable } from "@workspace/db";
-import { eq, and, ilike, or, desc } from "drizzle-orm";
+import { eq, and, like, or, desc } from "drizzle-orm";
 import {
   ListMemoriesQueryParams,
   CreateMemoryBody,
@@ -29,8 +29,8 @@ router.get("/memories", async (req, res): Promise<void> => {
         and(
           eq(memoriesTable.userId, userId),
           or(
-            ilike(memoriesTable.title, `%${search}%`),
-            ilike(memoriesTable.content, `%${search}%`)
+            like(memoriesTable.title, `%${search}%`),
+            like(memoriesTable.content, `%${search}%`)
           )
         )
       )
